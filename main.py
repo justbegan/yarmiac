@@ -63,7 +63,7 @@ async def async_main():
 
     total = 0
 
-    query = "SELECT cus_id FROM transactions limit 20000"
+    query = "SELECT cus_id FROM transactions"
 
     async with aiohttp.ClientSession() as session:
         for chunk in pd.read_sql(query, engine, chunksize=CHUNK_SIZE_DB):
