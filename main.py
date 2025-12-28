@@ -25,6 +25,7 @@ ASYNC_LIMIT = 30
 REQUEST_TIMEOUT = 10
 
 OUTPUT_FILE = "result.xlsx"
+ROW_LIMIT = 1_048_575
 
 
 async def fetch_fio(session, semaphore, cus_id):
@@ -63,7 +64,7 @@ async def async_main():
 
     total = 0
 
-    query = "SELECT cus_id FROM transactions"
+    query = f"SELECT cus_id FROM transactions LIMIT {ROW_LIMIT}"
 
     async with aiohttp.ClientSession() as session:
         for chunk in pd.read_sql(query, engine, chunksize=CHUNK_SIZE_DB):
